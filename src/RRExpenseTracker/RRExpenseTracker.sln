@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RRExpenseTracker.Server.Functions", "RRExpenseTracker.Server.Functions\RRExpenseTracker.Server.Functions.csproj", "{0B0B86DF-53DF-401A-888A-E1826BBD2202}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{5BA96BAC-0748-4E60-8DF4-6E695EF20D77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{74723902-ED27-4AAA-A1CD-E9FDA203D2AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B0B86DF-53DF-401A-888A-E1826BBD2202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B0B86DF-53DF-401A-888A-E1826BBD2202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B0B86DF-53DF-401A-888A-E1826BBD2202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B0B86DF-53DF-401A-888A-E1826BBD2202}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0B0B86DF-53DF-401A-888A-E1826BBD2202} = {5BA96BAC-0748-4E60-8DF4-6E695EF20D77}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9358274D-8814-45B2-BC29-E2BB433F061D}
+	EndGlobalSection
+EndGlobal
