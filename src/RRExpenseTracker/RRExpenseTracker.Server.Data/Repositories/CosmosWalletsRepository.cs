@@ -20,7 +20,7 @@
                 throw new ArgumentNullException(nameof(User));
             }
 
-            var queryText = $"SELECT * FROM c WHERE c.userId = @userId";
+            var queryText = "SELECT * FROM c WHERE c.userId = @userId";
             var query = new QueryDefinition(queryText).WithParameter("@userId", userId);
 
             var container = _cosmosClientDb.GetContainer(DATABASE_NAME, CONTAINER_NAME);
@@ -30,6 +30,27 @@
 
             return result.Resource;
 
+        }
+
+        public async Task<Wallet?> GetByIdAsync(string walletId, string userId)
+        {
+            if (string.IsNullOrWhiteSpace(walletId))
+            {
+                throw new ArgumentNullException(nameof(walletId));
+            }
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            var queryText = "SELECT * FROM c WHERE c.id=@id AND c.userId=@userId";
+            var query = new QueryDefinition(queryText).WithParameter("@id", walletId).WithParameter("@userId", userId);
+
+            var container = _cosmosClientDb.GetContainer(DATABASE_NAME, CONTAINER_NAME);
+            var iterator = container.GetItemQueryIterator<Wallet>(query);
+
+            var result = await iterator.ReadNextAsync();
+            return result.Resource.FirstOrDefault();
         }
     }
 }

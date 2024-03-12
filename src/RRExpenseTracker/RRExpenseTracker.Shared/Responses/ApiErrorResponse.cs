@@ -1,6 +1,6 @@
 ﻿namespace RRExpenseTracker.Shared.Responses
 {
-    public class ApiErrorResponse<T> : ApiResponse
+    public class ApiErrorResponse : ApiResponse
     {
         public ApiErrorResponse()
         {

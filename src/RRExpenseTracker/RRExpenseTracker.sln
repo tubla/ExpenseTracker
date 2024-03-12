@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RRExpenseTracker.Server.Functions", "RRExpenseTracker.Server.Functions\RRExpenseTracker.Server.Functions.csproj", "{0B0B86DF-53DF-401A-888A-E1826BBD2202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RRExpenseTracker.Server.Functions", "RRExpenseTracker.Server.Functions\RRExpenseTracker.Server.Functions.csproj", "{0B0B86DF-53DF-401A-888A-E1826BBD2202}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{5BA96BAC-0748-4E60-8DF4-6E695EF20D77}"
 EndProject
@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{747239
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{4FC3F9AA-3BE4-4B4D-8982-417D6564D8BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RRExpenseTracker.Shared", "RRExpenseTracker.Shared\RRExpenseTracker.Shared.csproj", "{A3016F01-F4C7-4AF0-96F8-A684D4B753A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RRExpenseTracker.Shared", "RRExpenseTracker.Shared\RRExpenseTracker.Shared.csproj", "{A3016F01-F4C7-4AF0-96F8-A684D4B753A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RRExpenseTracker.Server.Data", "RRExpenseTracker.Server.Data\RRExpenseTracker.Server.Data.csproj", "{5819961C-501D-425B-B590-D9B1E9F99E13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RRExpenseTracker.Server.Data", "RRExpenseTracker.Server.Data\RRExpenseTracker.Server.Data.csproj", "{5819961C-501D-425B-B590-D9B1E9F99E13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
