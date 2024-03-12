@@ -7,7 +7,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RRExpenseTracker.Server.Data.Interfaces;
-using RRExpenseTracker.Server.Data.Models;
+using RRExpenseTracker.Shared.DTOs;
 using RRExpenseTracker.Shared.Responses;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +38,16 @@ namespace RRExpenseTracker.Server.Functions
 
             string userId = "userId";
             var wallets = await _walletRepository.ListByUserIdAsync(userId);
-            return new OkObjectResult(new ApiSuccessResponse<IEnumerable<Wallet>>($"{wallets.Count()} wallets have been retrieved", wallets));
+            var results = wallets.Select(w => new WalletSummaryDto
+            {
+                Id = w.Id,
+                Name = w.Name,
+                Currency = w.Currency,
+                Balance = w.Balance,
+                Type = w.Type.Value
+
+            });
+            return new OkObjectResult(new ApiSuccessResponse<IEnumerable<WalletSummaryDto>>($"{wallets.Count()} wallets have been retrieved", results));
         }
     }
 }

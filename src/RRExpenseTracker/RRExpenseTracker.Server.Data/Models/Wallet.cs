@@ -7,10 +7,9 @@ namespace RRExpenseTracker.Server.Data.Models
         [JsonProperty("id")]
         public string? Id { get; set; }
 
-        [JsonProperty("typeName")]
+        [JsonProperty("walletTypeName")]
         public string? TypeName { get; set; }
 
-        [JsonProperty("type")]
         public WalletType? Type => GetWalletTypeFromString(TypeName);
 
 
