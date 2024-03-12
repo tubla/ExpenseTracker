@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using RRExpenseTracker.Server.Data.Extensions;
+using RRExpenseTracker.Shared.Extensions;
 
 [assembly: FunctionsStartup(typeof(RRExpenseTracker.Server.Functions.Startup))]
 namespace RRExpenseTracker.Server.Functions
@@ -10,6 +11,7 @@ namespace RRExpenseTracker.Server.Functions
         {
             builder.Services.AddCosmosDbClient(builder.GetContext().Configuration["CosmosDb_ConnectionString"]);
             builder.Services.AddRepositories();
+            builder.Services.AddValidators();
         }
     }
 }
