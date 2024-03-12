@@ -52,5 +52,27 @@
             var result = await iterator.ReadNextAsync();
             return result.Resource.FirstOrDefault();
         }
+
+        public async Task CreateAsync(Wallet wallet)
+        {
+            if (wallet == null)
+            {
+                throw new ArgumentNullException(nameof(wallet));
+            }
+            var container = _cosmosClientDb.GetContainer(DATABASE_NAME, CONTAINER_NAME);
+            await container.CreateItemAsync(wallet);
+
+        }
+
+        public async Task UpdateAsync(Wallet wallet)
+        {
+            if (wallet == null)
+            {
+                throw new ArgumentNullException(nameof(wallet));
+            }
+            var container = _cosmosClientDb.GetContainer(DATABASE_NAME, CONTAINER_NAME);
+            await container.ReplaceItemAsync(wallet, wallet.Id);
+
+        }
     }
 }
