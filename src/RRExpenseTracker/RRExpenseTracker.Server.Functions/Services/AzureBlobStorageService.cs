@@ -47,6 +47,8 @@ namespace RRExpenseTracker.Server.Functions.Services
             var blob = container.GetBlobClient(newFileName);
             await blob.UploadAsync(stream, new BlobUploadOptions
             {
+                // Set the content-type of the blob, this is important for the browser as browser
+                // checks the content-type to display the content in the browser when retrieved through url.  
                 HttpHeaders = new BlobHttpHeaders
                 {
                     ContentType = GetContentType(extension)
