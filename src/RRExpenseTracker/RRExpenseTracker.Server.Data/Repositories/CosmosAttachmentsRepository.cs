@@ -22,5 +22,32 @@
             var container = _cosmosClientDb.GetContainer(DATABASE_NAME, CONTAINER_NAME);
             await container.CreateItemAsync(attachment);
         }
+
+        public async Task<IEnumerable<Attachment>> GetUnusedAttachmentsAsync(int hours)
+        {
+            var queryText = "SELECT * FROM c WHERE DateTimeDiff('hour',c.uploadingDate,GetCurrentDateTime()) > @hours";
+            var query = new QueryDefinition(queryText).WithParameter("@hours", hours);
+
+            var container = _cosmosClientDb.GetContainer(DATABASE_NAME, CONTAINER_NAME);
+            var iterator = container.GetItemQueryIterator<Attachment>(query);
+
+            var result = await iterator.ReadNextAsync();
+
+            // ContinuationToken is not null until there are records/attachments available in cosmosdb
+            var attachments = new List<Attachment>();
+            if (result.Any())
+            {
+                attachments.AddRange(result.Resource);
+            }
+
+            while (result.ContinuationToken != null) // means there are more records in the database
+            {
+                iterator = container.GetItemQueryIterator<Attachment>(query, result.ContinuationToken);
+                result = await iterator.ReadNextAsync();
+                attachments.AddRange(result.Resource);
+            }
+
+            return attachments;
+        }
     }
 }
