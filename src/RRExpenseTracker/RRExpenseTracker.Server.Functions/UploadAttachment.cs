@@ -10,6 +10,8 @@ using RRExpenseTracker.Server.Data.Interfaces;
 using RRExpenseTracker.Server.Functions.Services;
 using RRExpenseTracker.Shared.Responses;
 using System;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -21,12 +23,17 @@ namespace RRExpenseTracker.Server.Functions
 
         private readonly IStorageService _storageService;
         private readonly IAttachmentsRepository _attachmentsRepository;
+        private readonly IImageAnalyzerService _imageAnalyzerService;
 
-        public UploadAttachment(ILogger<UploadAttachment> log, IStorageService storageService, IAttachmentsRepository attachmentsRepository)
+        public UploadAttachment(ILogger<UploadAttachment> log,
+                                IStorageService storageService,
+                                IAttachmentsRepository attachmentsRepository,
+                                IImageAnalyzerService imageAnalyzerService)
         {
             _logger = log;
             _storageService = storageService;
             _attachmentsRepository = attachmentsRepository;
+            _imageAnalyzerService = imageAnalyzerService;
         }
 
         [FunctionName("UploadAttachment")]
@@ -49,19 +56,29 @@ namespace RRExpenseTracker.Server.Functions
                 return new BadRequestObjectResult(new ApiErrorResponse("File is required"));
             }
 
-            // TODO: Call the Microsoft Computer Vision API to make sure it's a document image
+            // TODO: Call the Microsoft Computer Vision API to make sure it's a document image(mainly expense bill)
+            var extension = Path.GetExtension(file.FileName);
+            var validExtensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
+            if (!validExtensions.Contains(extension))
+            {
+                return new BadRequestObjectResult(new ApiErrorResponse($"The extension {extension} is not supported"));
+            }
+
+            using (var stream = file.OpenReadStream())
+            {
+                var categories = await _imageAnalyzerService.ExtractImageCatagoriesAsync(stream);
+
+                if (!categories.Any(c => c.StartsWith("paper") || c.StartsWith("text")))
+                {
+                    return new BadRequestObjectResult(new ApiErrorResponse($"Please upload a relevant image file"));
+                }
+            }
+
 
             // Save the file and retrieve the URL
             string url = string.Empty;
-            try
-            {
-                url = await _storageService.SaveFileAsync(file.OpenReadStream(), file.FileName);
-            }
-            catch (NotSupportedException)
-            {
+            url = await _storageService.SaveFileAsync(file.OpenReadStream(), file.FileName);
 
-                return new BadRequestObjectResult(new ApiErrorResponse("File is required"));
-            }
 
             // Save the URL in the database.
 

@@ -2,7 +2,6 @@
 using Azure.Storage.Blobs.Models;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RRExpenseTracker.Server.Functions.Services
@@ -33,11 +32,7 @@ namespace RRExpenseTracker.Server.Functions.Services
 
             // Retrieve and validate the extension
             var extension = Path.GetExtension(filename).ToLower();
-            var validExtensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
-            if (!validExtensions.Contains(extension))
-            {
-                throw new NotSupportedException($"The extension {extension} is not supported");
-            }
+
 
             // Generate a new unique name
             var nameOnly = Path.GetFileNameWithoutExtension(filename);

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
 using RRExpenseTracker.Server.Data.Extensions;
-using RRExpenseTracker.Server.Functions.Services;
+using RRExpenseTracker.Server.Functions.Extensions;
 using RRExpenseTracker.Shared.Extensions;
 
 [assembly: FunctionsStartup(typeof(RRExpenseTracker.Server.Functions.Startup))]
@@ -11,10 +10,14 @@ namespace RRExpenseTracker.Server.Functions
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddCosmosDbClient(builder.GetContext().Configuration["CosmosDb_ConnectionString"]);
+            var configuration = builder.GetContext().Configuration;
+
+            builder.Services.AddCosmosDbClient(configuration["CosmosDb_ConnectionString"]);
             builder.Services.AddRepositories();
             builder.Services.AddValidators();
-            builder.Services.AddScoped<IStorageService>(sp => new AzureBlobStorageService(builder.GetContext().Configuration["AzureWebJobsStorage"]));
+            builder.Services.AddStorageService(configuration["AzureWebJobsStorage"]);
+            builder.Services.AddComputerVisionService(configuration["ComputerVisionApiKey"], configuration["ComputerVisionEndpoint"]);
+
         }
     }
 }
