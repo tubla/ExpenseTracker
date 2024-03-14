@@ -13,6 +13,7 @@ namespace RRExpenseTracker.Server.Data.Extensions
         {
             services.AddScoped<IWalletRepository, CosmosWalletsRepository>();
             services.AddScoped<IAttachmentsRepository, CosmosAttachmentsRepository>();
+            services.AddScoped<ITransactionRepository, CosmosTransactionRepository>();
         }
     }
 }
