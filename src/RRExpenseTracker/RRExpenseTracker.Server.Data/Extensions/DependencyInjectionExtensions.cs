@@ -6,7 +6,10 @@ namespace RRExpenseTracker.Server.Data.Extensions
     {
         public static void AddCosmosDbClient(this IServiceCollection services, string connectionString)
         {
-            services.AddSingleton(sp => new CosmosClient(connectionString));
+            services.AddSingleton(sp => new CosmosClient(connectionString, new CosmosClientOptions
+            {
+                AllowBulkExecution = true
+            }));
         }
 
         public static void AddRepositories(this IServiceCollection services)
