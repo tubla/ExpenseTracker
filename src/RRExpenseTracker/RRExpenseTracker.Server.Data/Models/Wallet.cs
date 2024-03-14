@@ -5,7 +5,7 @@ namespace RRExpenseTracker.Server.Data.Models
     public class Wallet
     {
         [JsonProperty("id")]
-        public string? Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [JsonProperty("walletTypeName")]
         public string? WalletTypeName { get; set; }
@@ -41,10 +41,10 @@ namespace RRExpenseTracker.Server.Data.Models
         public string? Username { get; set; }
 
         [JsonProperty("creationDate")]
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
         [JsonProperty("modificationDate")]
-        public DateTime ModificationDate { get; set; }
+        public DateTime ModificationDate { get; set; } = DateTime.UtcNow;
 
         private WalletType? GetWalletTypeFromString(string? typeName)
         {
