@@ -96,6 +96,7 @@
             };
 
             await container.PatchItemAsync<Wallet>(walletId, new PartitionKey(userId), patchOperations);
+
         }
 
     }

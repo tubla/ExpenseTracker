@@ -5,7 +5,7 @@ namespace RRExpenseTracker.Server.Data.Models
     public class Wallet
     {
         [JsonProperty("id")]
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string? Id { get; set; }
 
         [JsonProperty("walletTypeName")]
         public string? WalletTypeName { get; set; }

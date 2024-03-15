@@ -15,7 +15,7 @@ namespace RRExpenseTracker.Server.Data.Models
         public bool IsIncome { get; private set; }
 
         [JsonProperty("amount")]
-        public decimal Amount { get; private set; }
+        public double Amount { get; private set; }
 
         [JsonProperty("creationDate")]
         public DateTime CreationDate { get; private set; } = DateTime.UtcNow;
@@ -55,8 +55,9 @@ namespace RRExpenseTracker.Server.Data.Models
 
         public static Transaction Create(string walletId,
                                          string userId,
-                                         decimal amount,
+                                         double amount,
                                          string category,
+                                         bool isIncome,
                                          string? description = null,
                                          string[]? tags = null,
                                          string[]? attachments = null)
@@ -67,6 +68,7 @@ namespace RRExpenseTracker.Server.Data.Models
                 UserId = userId,
                 Amount = amount,
                 Category = category,
+                IsIncome = isIncome,
                 Description = description,
                 Tags = tags,
                 Attachments = attachments,
@@ -75,7 +77,7 @@ namespace RRExpenseTracker.Server.Data.Models
         }
 
         public void Update(bool isIncome,
-                           decimal amount,
+                           double amount,
                            string category,
                            string? description = null,
                            string[]? tags = null,

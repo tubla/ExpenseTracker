@@ -21,7 +21,7 @@ namespace RRExpenseTracker.Server.Functions
         }
 
         [FunctionName("DeleteUnusedAttachments")]
-        public async Task Run([TimerTrigger("0 0 */6 ? * *")] TimerInfo myTimer, ILogger log)
+        public async Task Run([TimerTrigger("0 0 */6 * * *")] TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"Delete unused attachments triggered at: {DateTime.Now}");
 
