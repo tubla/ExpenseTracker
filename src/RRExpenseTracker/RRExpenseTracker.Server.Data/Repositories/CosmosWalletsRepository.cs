@@ -74,5 +74,29 @@
             await container.ReplaceItemAsync(wallet, wallet.Id);
 
         }
+
+        public async Task UpdateBalanceAsync(string walletId, string userId, double amount)
+        {
+            if (string.IsNullOrWhiteSpace(walletId))
+            {
+                throw new ArgumentNullException(nameof(walletId));
+            }
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+            if (amount == 0)
+            {
+                return;
+            }
+            var container = _cosmosClientDb.GetContainer(DATABASE_NAME, CONTAINER_NAME);
+            var patchOperations = new[]
+            {
+                PatchOperation.Increment("/balance",amount)
+            };
+
+            await container.PatchItemAsync<Wallet>(walletId, new PartitionKey(userId), patchOperations);
+        }
+
     }
 }

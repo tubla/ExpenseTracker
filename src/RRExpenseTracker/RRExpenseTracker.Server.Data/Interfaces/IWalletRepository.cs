@@ -8,5 +8,7 @@
         Task CreateAsync(Wallet wallet);
 
         Task UpdateAsync(Wallet wallet);
+
+        Task UpdateBalanceAsync(string walletId, string userId, double amount);
     }
 }
